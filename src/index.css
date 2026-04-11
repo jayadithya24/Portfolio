@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --background: 210 20% 98%;
+    --foreground: 215 25% 12%;
+
+    --card: 210 25% 96%;
+    --card-foreground: 215 25% 12%;
+
+    --popover: 210 25% 96%;
+    --popover-foreground: 215 25% 12%;
+
+    --primary: 185 80% 45%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 60% 55%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 270 55% 60%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 185 80% 45%;
+
+    --radius: 0.75rem;
+
+    --glow-primary: 185 80% 45%;
+    --glow-secondary: 220 60% 55%;
+    --glow-accent: 270 55% 60%;
+
+    --glass-bg: 210 20% 98% / 0.6;
+    --glass-border: 210 20% 88% / 0.4;
+    --glass-blur: 20px;
+
+    --gradient-hero: linear-gradient(135deg, hsl(185 80% 45% / 0.08), hsl(220 60% 55% / 0.08), hsl(270 55% 60% / 0.05));
+    --gradient-glow: linear-gradient(135deg, hsl(185 80% 45%), hsl(220 60% 55%), hsl(270 55% 60%));
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 25% 6%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 25% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 25% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 185 80% 50%;
+    --primary-foreground: 220 25% 6%;
+
+    --secondary: 220 60% 60%;
+    --secondary-foreground: 220 25% 6%;
+
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 12% 55%;
+
+    --accent: 270 55% 65%;
+    --accent-foreground: 220 25% 6%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 185 80% 50%;
+
+    --glow-primary: 185 80% 50%;
+    --glow-secondary: 220 60% 60%;
+    --glow-accent: 270 55% 65%;
+
+    --glass-bg: 220 25% 10% / 0.5;
+    --glass-border: 220 20% 25% / 0.4;
+
+    --gradient-hero: linear-gradient(135deg, hsl(185 80% 50% / 0.1), hsl(220 60% 60% / 0.1), hsl(270 55% 65% / 0.06));
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-heading);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+  code {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.3),
+                0 0 60px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 20px hsl(var(--glow-secondary) / 0.3),
+                0 0 60px hsl(var(--glow-secondary) / 0.1);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--glow-accent) / 0.3),
+                0 0 60px hsl(var(--glow-accent) / 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--glow-primary) / 0.5),
+                 0 0 40px hsl(var(--glow-primary) / 0.2);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-24 py-20 md:py-32;
+  }
+}
