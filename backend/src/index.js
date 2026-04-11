@@ -12,11 +12,19 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const app = express();
 
 const port = Number(process.env.PORT || 5000);
-const frontendOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: frontendOrigin,
+    origin: (origin, callback) => {
+      // Allow non-browser tools and same-origin server-to-server calls.
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error('Not allowed by CORS'));
+    },
   })
 );
 app.use(express.json());
