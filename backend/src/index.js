@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGODB_URI).catch((err) => {
 
 const app = express();
 
-const port = Number(process.env.PORT || 5000);
+const port = Number(process.env.PORT || 3001);
+const maxPortRetries = 10;
 const allowedOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
@@ -83,6 +84,22 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend running on http://localhost:${port}`);
-});
+const startServer = (requestedPort, attempt = 0) => {
+  const server = app.listen(requestedPort, () => {
+    console.log(`Backend running on http://localhost:${requestedPort}`);
+  });
+
+  server.on('error', (error) => {
+    if (error?.code === 'EADDRINUSE' && attempt < maxPortRetries) {
+      const nextPort = requestedPort + 1;
+      console.warn(`Port ${requestedPort} is busy. Trying port ${nextPort}...`);
+      startServer(nextPort, attempt + 1);
+      return;
+    }
+
+    console.error('Server failed to start:', error);
+    process.exit(1);
+  });
+};
+
+startServer(port);
