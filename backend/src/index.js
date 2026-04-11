@@ -1,13 +1,20 @@
 import express from 'express';
 import cors from 'cors';
-import nodemailer from 'nodemailer';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import Message from './models/Message.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI).catch((err) => {
+  console.error('MongoDB connection error:', err);
+  process.exit(1);
+});
 
 const app = express();
 
@@ -54,45 +61,24 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      family: 4,
-      connectionTimeout: 60000,
-      greetingTimeout: 60000,
-      socketTimeout: 60000,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
+    const newMessage = new Message({
+      name,
+      email,
+      message,
     });
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: `New Contact Form Submission from ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
-      replyTo: email,
-    };
-
-    await transporter.sendMail(mailOptions);
+    await newMessage.save();
 
     return res.status(201).json({
       ok: true,
-      message: 'Message sent successfully',
+      message: 'Message received successfully. Thank you for contacting!',
+      id: newMessage._id,
     });
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('Error saving message:', error);
     return res.status(500).json({
       ok: false,
-      error: error instanceof Error ? error.message : 'Failed to send message. Please try again later.',
+      error: error instanceof Error ? error.message : 'Failed to save message. Please try again later.',
     });
   }
 });
