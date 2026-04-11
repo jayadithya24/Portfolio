@@ -44,19 +44,16 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    // Create a transporter for sending emails
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
     });
 
-    // Verify transporter connection
-    await transporter.verify();
-
-    // Send email to your inbox
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
@@ -73,29 +70,15 @@ app.post('/api/contact', async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    // Optional: Send confirmation email to the visitor
-    const confirmationEmail = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'We received your message',
-      html: `
-        <h2>Hello ${name},</h2>
-        <p>Thank you for reaching out! I received your message and will get back to you as soon as possible.</p>
-        <p>Best regards</p>
-      `,
-    };
-
-    await transporter.sendMail(confirmationEmail);
-
     return res.status(201).json({
       ok: true,
       message: 'Message sent successfully',
     });
   } catch (error) {
-    console.error('Email sending error:', error.message);
+    console.error('Email sending error:', error);
     return res.status(500).json({
       ok: false,
-      error: 'Failed to send message. Please try again later.',
+      error: error instanceof Error ? error.message : 'Failed to send message. Please try again later.',
     });
   }
 });
