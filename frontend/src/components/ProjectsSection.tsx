@@ -11,7 +11,7 @@ const projects = [
     desc: 'A fully responsive online shopping experience with real-time inventory, cart management, and seamless checkout flow.',
     color: 'from-primary/20 to-secondary/20',
     url: 'https://hostelops-fullstack.vercel.app',
-    image: projectImage('hostelops.jpeg'),
+    image: projectImage('hostelops2.png'),
   },
   {
     title: 'PhishGuard AI',
