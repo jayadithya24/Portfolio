@@ -10,7 +10,7 @@ const projects = [
     tech: 'React • Tailwind • Supabase',
     desc: 'A fully responsive online shopping experience with real-time inventory, cart management, and seamless checkout flow.',
     color: 'from-primary/20 to-secondary/20',
-    url: 'https://gentle-centaur-dc63d9.netlify.app/',
+    url: 'https://hostelops-fullstack.vercel.app',
     image: projectImage('hostelops.jpeg'),
   },
   {
