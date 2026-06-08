@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion';
-import { Moon, Sun } from 'lucide-react';
+import { Menu, Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 type HeaderProps = {
   isDark: boolean;
@@ -53,15 +61,60 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
               {link.label}
             </Link>
           ))}
+
+          <button
+            onClick={onToggleTheme}
+            className="p-2 rounded-full glass hover:glow-primary transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={18} className="text-primary" /> : <Moon size={18} className="text-primary" />}
+          </button>
         </nav>
 
-        <button
-          onClick={onToggleTheme}
-          className="p-2 rounded-full glass hover:glow-primary transition-all duration-300"
-          aria-label="Toggle theme"
-        >
-          {isDark ? <Sun size={18} className="text-primary" /> : <Moon size={18} className="text-primary" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={onToggleTheme}
+            className="p-2 rounded-full glass hover:glow-primary transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={18} className="text-primary" /> : <Moon size={18} className="text-primary" />}
+          </button>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full glass hover:glow-primary transition-all duration-300"
+                aria-label="Open navigation menu"
+              >
+                <Menu size={20} className="text-primary" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent side="right" className="w-[82vw] border-border/70 bg-background/95 backdrop-blur-xl">
+              <SheetHeader className="text-left">
+                <SheetTitle className="gradient-text text-2xl">Navigation</SheetTitle>
+              </SheetHeader>
+
+              <div className="mt-8 flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`rounded-2xl border px-4 py-4 text-base font-medium transition-colors duration-300 ${
+                      location.pathname === link.path
+                        ? 'border-primary/40 bg-primary/10 text-primary'
+                        : 'border-border/70 bg-card/40 text-foreground hover:bg-card/70 hover:text-primary'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </motion.header>
   );
