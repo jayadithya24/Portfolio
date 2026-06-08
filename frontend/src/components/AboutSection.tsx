@@ -112,7 +112,9 @@ export default function AboutSection() {
 
             <div className="flex flex-wrap gap-4">
               <a
-                href="#contact"
+                href="/resume/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-primary-foreground font-medium shadow-lg shadow-primary/20 transition-transform duration-300 hover:-translate-y-0.5"
               >
                 View Resume
