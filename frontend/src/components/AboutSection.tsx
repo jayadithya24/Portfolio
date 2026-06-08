@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import {
   Award,
@@ -117,13 +118,13 @@ export default function AboutSection() {
                 View Resume
                 <Globe size={18} />
               </a>
-              <a
-                href="/projects"
+              <Link
+                to="/projects"
                 className="inline-flex items-center gap-2 rounded-xl border border-border bg-card/40 px-6 py-3 font-medium text-foreground transition-colors duration-300 hover:bg-card/70"
               >
                 View Projects
                 <Code2 size={18} />
-              </a>
+              </Link>
             </div>
           </motion.div>
 
