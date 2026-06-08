@@ -52,14 +52,19 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         <div className="flex items-center gap-4">
           <>
             {project.url ? (
-              <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/80 via-indigo-500/70 to-purple-500/70 hover:scale-[1.01] transition-transform">
-                <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-2 text-sm font-semibold text-white">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/80 via-indigo-500/70 to-purple-500/70 hover:scale-[1.01] transition-transform"
+              >
+                <span className="flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white bg-card/80 dark:bg-card/95">
                   Live Demo <ExternalLink size={14} />
                 </span>
               </a>
             ) : (
               <span className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/40 via-indigo-400/30 to-purple-400/30 opacity-70">
-                <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-2 text-sm font-semibold text-white/70 cursor-not-allowed">
+                <span className="flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white/70 bg-card/60 cursor-not-allowed">
                   Live Demo <ExternalLink size={14} />
                 </span>
               </span>
@@ -81,7 +86,14 @@ export default function ProjectsSection() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="projects" className="section-padding bg-[radial-gradient(ellipse_at_top_left,#0b0820_0%,#0f0620_30%,transparent_60%)]">
+    <section
+      id="projects"
+      className="section-padding"
+      style={{
+        backgroundImage:
+          'radial-gradient(ellipse at top left, hsl(var(--background) / 0.12) 0%, hsl(var(--card) / 0.06) 30%, transparent 60%)',
+      }}
+    >
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}

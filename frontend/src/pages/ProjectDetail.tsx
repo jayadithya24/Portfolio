@@ -27,7 +27,13 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b0710] via-[#12071a] to-[#06020b] text-foreground">
+    <div
+      className="min-h-screen text-foreground"
+      style={{
+        backgroundImage:
+          'linear-gradient(to bottom, hsl(var(--background) / 0.06), hsl(var(--card) / 0.04) 35%, transparent 100%)',
+      }}
+    >
       <Header isDark={isDark} onToggleTheme={toggle} />
       <main className="pt-24">
         <div className="max-w-7xl mx-auto px-6 py-16">
@@ -69,14 +75,19 @@ export default function ProjectDetailPage() {
 
               <div className="flex gap-4">
                 {project.url ? (
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/80 via-indigo-500/70 to-purple-500/70 hover:scale-[1.01] transition-transform">
-                    <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-3 text-sm font-semibold text-white">
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/80 via-indigo-500/70 to-purple-500/70 hover:scale-[1.01] transition-transform"
+                  >
+                    <span className="flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white bg-card/80 dark:bg-card/95">
                       Live Demo <ExternalLink size={16} />
                     </span>
                   </a>
                 ) : (
                   <span className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/40 via-indigo-400/30 to-purple-400/30 opacity-70">
-                    <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-3 text-sm font-semibold text-white/70 cursor-not-allowed">
+                    <span className="flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white/70 bg-card/60 cursor-not-allowed">
                       Live Demo <ExternalLink size={16} />
                     </span>
                   </span>
@@ -95,13 +106,13 @@ export default function ProjectDetailPage() {
             </div>
 
             <div>
-              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-[#0f1220] to-[#161026] p-3 sm:p-4 md:p-6 border border-white/6">
+              <div className="rounded-2xl overflow-hidden p-3 sm:p-4 md:p-6 border border-white/6" style={{ backgroundImage: 'linear-gradient(135deg, hsl(var(--card) / 0.9), hsl(var(--popover) / 0.95))' }}>
                 <div className="relative w-full aspect-[4/3] md:aspect-auto md:min-h-[420px] md:max-h-[68vh]">
                   {project.image ? (
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-contain md:object-cover rounded-xl shadow-lg bg-[#0b0710]"
+                      className="absolute inset-0 w-full h-full object-contain md:object-cover rounded-xl shadow-lg"
                     />
                   ) : (
                     <div className="absolute inset-0 rounded-xl bg-card/40" />
