@@ -21,8 +21,8 @@ const intro =
   "I design and build thoughtful digital experiences with a focus on usability, motion, and visual clarity. I enjoy turning ideas into polished interfaces and shipping work that feels modern, purposeful, and reliable.";
 
 const stats = [
-  { icon: BriefcaseBusiness, label: 'Projects', value: '08', subtext: 'Total projects', detail: 'Innovative web solutions crafted' },
-  { icon: Award, label: 'Certifications', value: '12', subtext: 'Certificates', detail: 'Professional skills validated' },
+  { icon: BriefcaseBusiness, label: 'Projects', value: '07', subtext: 'Total projects', detail: 'Innovative web solutions crafted' },
+  { icon: Award, label: 'Certifications', value: '9', subtext: 'Certificates', detail: 'Professional skills validated' },
   { icon: GraduationCap, label: 'Academic Year', value: '2023-27', subtext: '3rd year student', detail: 'Continuous learning journey' },
 ];
 

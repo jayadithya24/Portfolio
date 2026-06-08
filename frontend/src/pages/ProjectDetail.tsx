@@ -95,12 +95,18 @@ export default function ProjectDetailPage() {
             </div>
 
             <div>
-              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-[#0f1220] to-[#161026] p-6 border border-white/6">
-                {project.image ? (
-                  <img src={project.image} alt={project.title} className="w-full h-[420px] object-cover rounded-xl shadow-lg" />
-                ) : (
-                  <div className="w-full h-[420px] rounded-xl bg-card/40" />
-                )}
+              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-[#0f1220] to-[#161026] p-3 sm:p-4 md:p-6 border border-white/6">
+                <div className="relative w-full aspect-[4/3] md:aspect-auto md:min-h-[420px] md:max-h-[68vh]">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-contain md:object-cover rounded-xl shadow-lg bg-[#0b0710]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 rounded-xl bg-card/40" />
+                  )}
+                </div>
               </div>
             </div>
           </div>
