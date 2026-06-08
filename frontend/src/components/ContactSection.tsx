@@ -34,32 +34,41 @@ export default function ContactSection() {
       return;
     }
 
-    try {
-      setIsSubmitting(true);
+      try {
+        setIsSubmitting(true);
 
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+        // Build mailto link to open user's email client with prefilled subject and body
+        const subject = `Message from ${formData.name || 'Portfolio Visitor'}`;
+        const bodyLines = [
+          `Name: ${formData.name}`,
+          `Email: ${formData.email}`,
+          '',
+          `${formData.message}`,
+        ];
+        const body = encodeURIComponent(bodyLines.join('\n'));
+        const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      const payload = await response.json();
+        // Try opening mail client
+        try {
+          const opened = window.open(mailto, '_self');
+          if (opened === null) {
+            // fallback to assigning location
+            window.location.href = mailto;
+          }
+        } catch (err) {
+          // final fallback
+          window.location.href = mailto;
+        }
 
-      if (!response.ok) {
-        throw new Error(payload?.error || 'Failed to send message. Please try again.');
+        setClicked(true);
+        setTimeout(() => setClicked(false), 600);
+        setSuccessMessage('Your email client should open shortly.');
+        setFormData({ name: '', email: '', message: '' });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unable to open email client right now.');
+      } finally {
+        setIsSubmitting(false);
       }
-
-      setClicked(true);
-      setTimeout(() => setClicked(false), 600);
-      setSuccessMessage('Message sent successfully. I will get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to send message right now.');
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (

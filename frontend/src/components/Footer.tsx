@@ -1,4 +1,4 @@
-import { Linkedin, Github, Globe, Mail } from 'lucide-react';
+import { Linkedin, Github, Globe, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const links = [
@@ -10,7 +10,7 @@ const links = [
 const socials = [
   { icon: Linkedin, href: 'https://www.linkedin.com/in/jayadithya-g-salian-9b7599336' },
   { icon: Github, href: 'https://github.com/jayadithya24' },
-  { icon: Mail, href: 'mailto:jayadithyagsalian@gmail.com' },
+  { icon: Instagram, href: 'https://www.instagram.com/p_xx_20052244' },
 ];
 
 export default function Footer() {
@@ -33,29 +33,20 @@ export default function Footer() {
             <a
               key={i}
               href={s.href}
-              onClick={async (e) => {
-                if (s.href.startsWith('mailto:')) {
-                  e.preventDefault();
-                  try {
-                    // Try opening mailto in a new tab/window — works in many browsers when default handler is configured
-                    window.open(s.href, '_blank');
-                    console.log('Footer: opened mailto in new tab', s.href);
-                    return;
-                  } catch (err) {
-                    console.warn('Footer: window.open mailto failed', err);
+              onClick={(e) => {
+                // Attempt to open external link in a new tab; fallback to contact page if blocked or fails
+                e.preventDefault();
+                try {
+                  const newWin = window.open(s.href, '_blank');
+                  // If popup was blocked or couldn't open, fallback
+                  if (!newWin) {
+                    throw new Error('popup_blocked');
                   }
-
-                  // Fallback: copy email to clipboard and inform user
-                  try {
-                    const email = s.href.replace(/^mailto:/, '');
-                    await navigator.clipboard.writeText(email);
-                    // eslint-disable-next-line no-alert
-                    alert(`Email address copied to clipboard: ${email}`);
-                    console.log('Footer: copied email to clipboard', email);
-                    return;
-                  } catch (err) {
-                    console.error('Footer: failed fallback for mailto', err);
-                  }
+                } catch (err) {
+                  // Fallback: navigate user to local contact page
+                  // eslint-disable-next-line no-alert
+                  alert('Unable to open external site from this environment. Opening contact page instead.');
+                  window.location.href = '/contact';
                 }
               }}
               className="p-2 rounded-full text-muted-foreground hover:text-primary hover:glow-primary transition-all duration-300"

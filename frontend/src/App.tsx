@@ -9,6 +9,7 @@ import CertificatePage from "./pages/Certificate.tsx";
 import ContactPage from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ProjectsPage from "./pages/Projects.tsx";
+import ProjectDetailPage from "./pages/ProjectDetail.tsx";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/certificate" element={<CertificatePage />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -1,59 +1,8 @@
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { ExternalLink } from 'lucide-react';
-
-const projectImage = (fileName: string) => `${import.meta.env.BASE_URL}projects/${fileName}`;
-
-const projects = [
-  {
-    title: 'Hostelops FullStack',
-    tech: 'React • Tailwind • Supabase',
-    desc: 'A fully responsive online shopping experience with real-time inventory, cart management, and seamless checkout flow.',
-    color: 'from-primary/20 to-secondary/20',
-    url: 'https://hostelops-fullstack.vercel.app',
-    image: projectImage('hostelops2.jpg'),
-  },
-  {
-    title: 'PhishGuard AI',
-    tech: 'React • TypeScript • Recharts',
-    desc: 'An interactive data visualization dashboard with real-time metrics, custom charts, and filterable KPI panels.',
-    color: 'from-secondary/20 to-accent/20',
-    url: 'https://phishguard-omega.vercel.app',
-    image: projectImage('phisgaurd.jpeg'),
-  },
-  {
-    title: 'Thumbnail Generator',
-    tech: 'React • Framer Motion • Spline',
-    desc: 'A 3D-enhanced personal portfolio featuring immersive animations, smooth transitions, and glassmorphism design.',
-    color: 'from-accent/20 to-primary/20',
-    url: 'https://thumbnail-project-beta.vercel.app',
-    image: projectImage('thumbnail.jpeg'),
-  },
-  {
-    title: 'Pizza Delivery Website',
-    tech: 'React • Framer Motion • Spline',
-    desc: 'A 3D-enhanced personal portfolio featuring immersive animations, smooth transitions, and glassmorphism design.',
-    color: 'from-accent/20 to-primary/20',
-    url: 'https://pizza-hut-frontend.netlify.app',
-    image: projectImage('pizza.jpeg'),
-  },
-  {
-    title: 'Hoops Basketball Store',
-    tech: 'React • Framer Motion • Spline',
-    desc: 'A 3D-enhanced personal portfolio featuring immersive animations, smooth transitions, and glassmorphism design.',
-    color: 'from-accent/20 to-primary/20',
-    url: 'https://hoops-basketball-store.vercel.app',
-    image: projectImage('basketball.jpeg'),
-  },
-  {
-    title: 'Digital Marketing Website',
-    tech: 'React • Framer Motion • Spline',
-    desc: 'A 3D-enhanced personal portfolio featuring immersive animations, smooth transitions, and glassmorphism design.',
-    color: 'from-accent/20 to-primary/20',
-    url: 'https://digital-marketing-ashen.vercel.app/',
-    image: projectImage('digital.jpeg'),
-  },
-];
+import { Link } from 'react-router-dom';
+import projects from '@/lib/projects';
 
 const intro = "Every project I build combines design elegance with functional precision. From immersive interfaces to scalable web solutions, my work reflects a balance of creativity, interactivity, and usability.";
 
@@ -100,14 +49,29 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{project.title}</h3>
         <p className="text-sm font-mono text-primary mb-4">{project.tech}</p>
         <p className="text-foreground/70 mb-6 leading-relaxed">{project.desc}</p>
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full glass gradient-border text-foreground font-medium hover:glow-primary transition-all duration-300 text-sm"
-        >
-          View Project <ExternalLink size={14} />
-        </a>
+        <div className="flex items-center gap-4">
+          <>
+            {project.url ? (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/80 via-indigo-500/70 to-purple-500/70 hover:scale-[1.01] transition-transform">
+                <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-2 text-sm font-semibold text-white">
+                  Live Demo <ExternalLink size={14} />
+                </span>
+              </a>
+            ) : (
+              <span className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-400/40 via-indigo-400/30 to-purple-400/30 opacity-70">
+                <span className="flex items-center gap-2 bg-[#0b0710] dark:bg-[#0b0710] rounded-full px-5 py-2 text-sm font-semibold text-white/70 cursor-not-allowed">
+                  Live Demo <ExternalLink size={14} />
+                </span>
+              </span>
+            )}
+
+            <Link to={`/projects/${(project as any).slug || encodeURIComponent(project.title.toLowerCase().replace(/\s+/g, '-'))}`} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/8 bg-card/40 text-foreground font-medium hover:bg-card/70 transition-all duration-300 text-sm">
+              Details
+            </Link>
+          </>
+
+          
+        </div>
       </div>
     </motion.div>
   );
@@ -117,7 +81,7 @@ export default function ProjectsSection() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="section-padding bg-[radial-gradient(ellipse_at_top_left,#0b0820_0%,#0f0620_30%,transparent_60%)]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
@@ -130,9 +94,11 @@ export default function ProjectsSection() {
           <p className="text-foreground/70 max-w-2xl mx-auto leading-relaxed">{intro}</p>
         </motion.div>
 
-        <div className="space-y-20">
+        <div className="space-y-12">
           {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
+            <div key={project.title} className="rounded-2xl p-8 glass border border-white/6 hover:shadow-2xl transition-shadow duration-300">
+              <ProjectCard project={project} index={i} />
+            </div>
           ))}
         </div>
       </div>
