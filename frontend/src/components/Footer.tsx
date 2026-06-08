@@ -27,13 +27,6 @@ export default function Footer() {
               {link.label}
             </Link>
           ))}
-          <a
-            href="mailto:jayadithyagsalian@gmail.com"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 ml-2"
-            aria-label="Email"
-          >
-            Email
-          </a>
         </div>
         <div className="flex gap-4">
           {socials.map((s, i) => (
