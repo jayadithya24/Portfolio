@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-const title = 'UI/UX Designer & Frontend Developer';
+const title = 'Full Stack Developer';
 const name = 'Jayadithya G Salian';
 const description = 'Designing interfaces. Developing experiences. Delivering creative digital products.';
 
