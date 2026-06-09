@@ -1,16 +1,15 @@
 import { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Linkedin, Github, Globe, Mail, Send } from 'lucide-react';
+import { Linkedin, Github, Instagram, Send } from 'lucide-react';
 
 const CONTACT_EMAIL = 'jayadithyagsalian@gmail.com';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 
 const socials = [
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/your-profile/' },
-  { icon: Github, label: 'GitHub', href: 'https://github.com/your-username' },
-  { icon: Globe, label: 'Portfolio', href: 'https://your-portfolio-site.com' },
-  { icon: Mail, label: 'Email', href: `mailto:${CONTACT_EMAIL}` },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/jayadithya-g-salian-9b7599336' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/jayadithya24' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/p_xx_20052244' },
 ];
 
 const heading = "Let's collaborate and bring your ideas to life. Whether it's designing a seamless interface or building an interactive web experience, I'm always excited to connect.";
